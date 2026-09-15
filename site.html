@@ -1,0 +1,1286 @@
+```html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f7e8d8">
+
+<title>Pour Romane ❤️</title>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    overflow: hidden;
+    font-family: Georgia, "Times New Roman", serif;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            #fff7ed,
+            #f5dfd0 70%,
+            #e9c9bb
+        );
+
+    color: #4b3030;
+}
+
+
+/* =========================================================
+   PETITES PARTICULES
+========================================================= */
+
+#particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.65);
+
+    animation:
+        particleFloat
+        6s
+        ease-in-out
+        infinite
+        alternate;
+}
+
+@keyframes particleFloat {
+
+    from {
+        transform: translateY(10px);
+        opacity: .2;
+    }
+
+    to {
+        transform: translateY(-30px);
+        opacity: .8;
+    }
+}
+
+
+/* =========================================================
+   ÉCRANS
+========================================================= */
+
+.screen {
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity .7s ease,
+        visibility .7s ease;
+}
+
+.screen.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* =========================================================
+   LETTRE
+========================================================= */
+
+.letter-scene {
+    width: min(500px, 92vw);
+
+    text-align: center;
+}
+
+.envelope {
+    position: relative;
+
+    width: min(390px, 85vw);
+    height: 260px;
+
+    margin: auto;
+
+    cursor: pointer;
+
+    filter:
+        drop-shadow(
+            0 25px 30px rgba(90,45,35,.20)
+        );
+
+    transition:
+        transform .4s ease;
+}
+
+.envelope:hover {
+    transform:
+        translateY(-8px)
+        rotate(-1deg);
+}
+
+.envelope-body {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fff9ef,
+            #f4d9c6
+        );
+
+    border-radius: 5px;
+
+    border: 1px solid rgba(120,70,50,.18);
+
+    overflow: hidden;
+}
+
+.envelope-body::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(100,60,40,.025) 0px,
+            rgba(100,60,40,.025) 1px,
+            transparent 1px,
+            transparent 4px
+        );
+}
+
+.flap {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 0;
+    height: 0;
+
+    border-left:
+        calc(min(390px, 85vw) / 2)
+        solid transparent;
+
+    border-right:
+        calc(min(390px, 85vw) / 2)
+        solid transparent;
+
+    border-top: 145px solid #e8c3ae;
+
+    z-index: 4;
+
+    transform-origin: top center;
+
+    transition:
+        transform 1s cubic-bezier(.22,1,.36,1);
+}
+
+.envelope.open .flap {
+    transform: rotateX(180deg);
+}
+
+.letter-paper {
+    position: absolute;
+
+    width: 82%;
+    height: 210px;
+
+    left: 9%;
+    bottom: 15px;
+
+    background: #fffdf7;
+
+    border-radius: 3px;
+
+    box-shadow:
+        0 8px 20px rgba(80,45,35,.12);
+
+    z-index: 2;
+
+    transform:
+        translateY(70px);
+
+    transition:
+        transform 1s cubic-bezier(.22,1,.36,1);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 17px;
+
+    color: #694344;
+}
+
+.envelope.open .letter-paper {
+    transform:
+        translateY(-45px);
+}
+
+.seal {
+    position: absolute;
+
+    z-index: 6;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 65px;
+    height: 65px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #ff9f9f,
+            #c9515c
+        );
+
+    color: white;
+
+    font-size: 27px;
+
+    box-shadow:
+        0 6px 18px rgba(120,45,50,.25);
+
+    transition:
+        opacity .5s ease,
+        transform .7s ease;
+}
+
+.envelope.open .seal {
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%)
+        scale(.5);
+}
+
+.open-text {
+    margin-top: 30px;
+
+    color: #805d59;
+
+    font-size: 17px;
+
+    animation:
+        softBounce
+        2s
+        ease-in-out
+        infinite;
+}
+
+@keyframes softBounce {
+
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+
+/* =========================================================
+   TITRES
+========================================================= */
+
+.title {
+    font-size: clamp(38px, 9vw, 70px);
+
+    line-height: 1.05;
+
+    color: #663d40;
+
+    margin-bottom: 20px;
+
+    font-weight: normal;
+}
+
+.subtitle {
+    font-family:
+        Arial,
+        sans-serif;
+
+    font-size: 15px;
+
+    line-height: 1.7;
+
+    color: #856969;
+}
+
+
+/* =========================================================
+   QUESTION
+========================================================= */
+
+.question-card {
+    width: min(600px, 92vw);
+
+    padding: 45px 25px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,250,245,.75);
+
+    border:
+        1px solid rgba(130,80,70,.12);
+
+    box-shadow:
+        0 25px 70px rgba(90,45,35,.13);
+
+    backdrop-filter: blur(10px);
+
+    text-align: center;
+}
+
+.question-heart {
+    font-size: 42px;
+
+    margin-bottom: 20px;
+
+    animation:
+        heartBeat
+        1.6s
+        infinite;
+}
+
+@keyframes heartBeat {
+
+    0%,100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.12);
+    }
+}
+
+.question {
+    font-size: clamp(27px, 6vw, 46px);
+
+    color: #603b3d;
+
+    margin-bottom: 35px;
+
+    font-weight: normal;
+}
+
+.buttons {
+    position: relative;
+
+    height: 80px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 20px;
+}
+
+.choice {
+    border: none;
+
+    padding: 14px 28px;
+
+    border-radius: 999px;
+
+    font-size: 16px;
+
+    font-family: Arial, sans-serif;
+
+    cursor: pointer;
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.yes {
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #df7180,
+            #b94e63
+        );
+
+    box-shadow:
+        0 8px 20px rgba(180,70,90,.25);
+}
+
+.yes:hover {
+    transform: scale(1.06);
+}
+
+.no {
+    color: #72585a;
+
+    background: #eee0d9;
+
+    position: relative;
+}
+
+.no.running {
+    position: fixed;
+
+    z-index: 100;
+
+    transition:
+        left .25s ease,
+        top .25s ease;
+}
+
+
+/* =========================================================
+   MESSAGES
+========================================================= */
+
+.message {
+    max-width: 600px;
+
+    text-align: center;
+
+    animation:
+        messageAppear
+        .9s
+        cubic-bezier(.22,1,.36,1);
+}
+
+@keyframes messageAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message-icon {
+    font-size: 55px;
+
+    margin-bottom: 20px;
+}
+
+.message-text {
+    font-size: clamp(20px, 5vw, 30px);
+
+    line-height: 1.5;
+
+    color: #654244;
+}
+
+.next {
+    margin-top: 30px;
+
+    border: none;
+
+    padding: 14px 30px;
+
+    border-radius: 999px;
+
+    background: #c75b6c;
+
+    color: white;
+
+    font-family: Arial, sans-serif;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    box-shadow:
+        0 10px 25px rgba(170,65,85,.2);
+}
+
+
+/* =========================================================
+   PETIT JEU
+========================================================= */
+
+.game-area {
+    width: min(650px, 94vw);
+
+    text-align: center;
+}
+
+.game-title {
+    font-size: clamp(30px, 7vw, 50px);
+
+    color: #633e40;
+
+    margin-bottom: 12px;
+}
+
+.game-description {
+    color: #86686a;
+
+    font-family: Arial, sans-serif;
+
+    margin-bottom: 30px;
+}
+
+.love-meter {
+    width: 100%;
+    height: 18px;
+
+    background: #ead9d4;
+
+    border-radius: 999px;
+
+    overflow: hidden;
+
+    margin: 20px auto;
+
+    box-shadow:
+        inset 0 2px 5px rgba(80,40,30,.1);
+}
+
+.love-fill {
+    width: 0%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #e67c8c,
+            #bd4f68
+        );
+
+    border-radius: inherit;
+
+    transition:
+        width .5s ease;
+}
+
+.love-button {
+    border: none;
+
+    background: #fff9f3;
+
+    border:
+        1px solid #dfc7bd;
+
+    border-radius: 15px;
+
+    padding: 18px 25px;
+
+    color: #704c4e;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 25px rgba(90,45,35,.10);
+
+    transition:
+        transform .2s ease;
+}
+
+.love-button:active {
+    transform: scale(.94);
+}
+
+
+/* =========================================================
+   FINAL
+========================================================= */
+
+.final-screen {
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255,255,255,.6),
+            transparent 55%
+        );
+}
+
+.final {
+    text-align: center;
+
+    animation:
+        finalAppear
+        1.5s
+        cubic-bezier(.22,1,.36,1);
+}
+
+.final-heart {
+    font-size: 75px;
+
+    margin-bottom: 20px;
+
+    animation:
+        heartBeat
+        1.5s
+        infinite;
+}
+
+.final-title {
+    font-size: clamp(55px, 14vw, 110px);
+
+    color: #b84f62;
+
+    font-weight: normal;
+
+    line-height: 1;
+
+    margin-bottom: 25px;
+}
+
+.final-text {
+    font-size: clamp(20px, 5vw, 29px);
+
+    line-height: 1.5;
+
+    color: #674346;
+}
+
+.final-small {
+    margin-top: 30px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 13px;
+
+    letter-spacing: 2px;
+
+    color: #9a7778;
+}
+
+@keyframes finalAppear {
+
+    from {
+        opacity: 0;
+        transform: scale(.85);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* =========================================================
+   CŒURS
+========================================================= */
+
+.flying-heart {
+    position: fixed;
+
+    pointer-events: none;
+
+    z-index: 200;
+
+    font-size: 20px;
+
+    animation:
+        flyHeart
+        4s
+        ease-out
+        forwards;
+}
+
+@keyframes flyHeart {
+
+    0% {
+        opacity: 0;
+        transform:
+            translateY(0)
+            scale(.5)
+            rotate(0);
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+
+        transform:
+            translateY(-100vh)
+            translateX(var(--x))
+            scale(1.4)
+            rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .envelope {
+        height: 220px;
+    }
+
+    .flap {
+        border-top-width: 120px;
+    }
+
+    .letter-paper {
+        height: 175px;
+    }
+
+    .buttons {
+        height: 120px;
+    }
+
+    .question-card {
+        padding: 35px 18px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div id="particles"></div>
+
+
+<!-- =====================================================
+     ÉCRAN 1 — ENVELOPPE
+===================================================== -->
+
+<section class="screen active" id="screen1">
+
+    <div class="letter-scene">
+
+        <div
+            class="envelope"
+            id="envelope"
+            onclick="openLetter()"
+        >
+
+            <div class="envelope-body"></div>
+
+            <div class="letter-paper">
+                Une petite lettre<br>
+                rien que pour toi ❤️
+            </div>
+
+            <div class="flap"></div>
+
+            <div class="seal">
+                ♥
+            </div>
+
+        </div>
+
+        <div class="open-text">
+            Clique sur la lettre pour l'ouvrir...
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ÉCRAN 2 — QUESTION
+===================================================== -->
+
+<section class="screen" id="screen2">
+
+    <div class="question-card">
+
+        <div class="question-heart">
+            ❤️
+        </div>
+
+        <div class="question">
+            Est-ce que tu veux<br>
+            passer la journée avec moi ?
+        </div>
+
+        <div class="buttons">
+
+            <button
+                class="choice yes"
+                onclick="yesClicked()"
+            >
+                Oui ❤️
+            </button>
+
+            <button
+                class="choice no"
+                id="noButton"
+                onmouseenter="runAway()"
+                ontouchstart="runAway()"
+            >
+                Non
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ÉCRAN 3 — MESSAGE
+===================================================== -->
+
+<section class="screen" id="screen3">
+
+    <div class="message">
+
+        <div class="message-icon">
+            🥰
+        </div>
+
+        <div class="message-text">
+            Je savais que tu allais dire oui.
+            <br><br>
+            Mais j'avais quand même envie
+            de te poser la question.
+        </div>
+
+        <button
+            class="next"
+            onclick="showScreen(4)"
+        >
+            J'ai encore quelque chose à te dire
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ÉCRAN 4 — PETIT JEU
+===================================================== -->
+
+<section class="screen" id="screen4">
+
+    <div class="game-area">
+
+        <div class="game-title">
+            Une dernière petite chose...
+        </div>
+
+        <div class="game-description">
+            Appuie sur le bouton jusqu'à remplir la jauge ❤️
+        </div>
+
+        <div class="love-meter">
+
+            <div
+                class="love-fill"
+                id="loveFill"
+            ></div>
+
+        </div>
+
+        <button
+            class="love-button"
+            onclick="addLove()"
+        >
+            Ajouter un peu d'amour ❤️
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ÉCRAN 5 — FINAL
+===================================================== -->
+
+<section class="screen final-screen" id="screen5">
+
+    <div class="final">
+
+        <div class="final-heart">
+            ❤️
+        </div>
+
+        <div class="final-title">
+            Je t'aime.
+        </div>
+
+        <div class="final-text">
+            Passe une merveilleuse journée avec moi. ❤️
+        </div>
+
+        <div class="final-small">
+            Ce petit site était juste pour toi.
+        </div>
+
+    </div>
+
+</section>
+
+
+<script>
+
+/* =========================================================
+   PARTICULES
+========================================================= */
+
+function createParticles() {
+
+    const container =
+        document.getElementById("particles");
+
+    for (let i = 0; i < 55; i++) {
+
+        const particle =
+            document.createElement("div");
+
+        particle.className = "particle";
+
+        particle.style.left =
+            Math.random() * 100 + "vw";
+
+        particle.style.top =
+            Math.random() * 100 + "vh";
+
+        particle.style.animationDelay =
+            Math.random() * 5 + "s";
+
+        particle.style.animationDuration =
+            3 + Math.random() * 5 + "s";
+
+        container.appendChild(particle);
+    }
+}
+
+createParticles();
+
+
+/* =========================================================
+   OUVRIR LA LETTRE
+========================================================= */
+
+let letterOpened = false;
+
+function openLetter() {
+
+    if (letterOpened) {
+        return;
+    }
+
+    letterOpened = true;
+
+    const envelope =
+        document.getElementById("envelope");
+
+    envelope.classList.add("open");
+
+    setTimeout(() => {
+
+        showScreen(2);
+
+    }, 1500);
+}
+
+
+/* =========================================================
+   CHANGEMENT D'ÉCRAN
+========================================================= */
+
+function showScreen(number) {
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(screen => {
+            screen.classList.remove("active");
+        });
+
+    const next =
+        document.getElementById(
+            "screen" + number
+        );
+
+    if (next) {
+        next.classList.add("active");
+    }
+
+    if (number === 2) {
+        prepareNoButton();
+    }
+}
+
+
+/* =========================================================
+   BOUTON NON QUI FUIT
+========================================================= */
+
+const noButton =
+    document.getElementById("noButton");
+
+let escapeCount = 0;
+
+function prepareNoButton() {
+
+    setTimeout(() => {
+
+        noButton.style.position = "relative";
+
+    }, 100);
+}
+
+
+function runAway() {
+
+    escapeCount++;
+
+    /*
+       Après quelques tentatives,
+       le bouton devient complètement incontrôlable.
+    */
+
+    noButton.classList.add("running");
+
+    const padding = 20;
+
+    const maxX =
+        window.innerWidth
+        - noButton.offsetWidth
+        - padding;
+
+    const maxY =
+        window.innerHeight
+        - noButton.offsetHeight
+        - padding;
+
+    const x =
+        padding
+        + Math.random() * Math.max(0, maxX - padding);
+
+    const y =
+        padding
+        + Math.random() * Math.max(0, maxY - padding);
+
+    noButton.style.left = x + "px";
+    noButton.style.top = y + "px";
+
+    /*
+       Petits messages après plusieurs tentatives.
+    */
+
+    if (escapeCount === 3) {
+        noButton.textContent = "Raté 😭";
+    }
+
+    if (escapeCount === 6) {
+        noButton.textContent = "Même pas en rêve";
+    }
+
+    if (escapeCount === 9) {
+        noButton.textContent = "ARRÊTE 😭";
+    }
+
+    if (escapeCount >= 12) {
+        noButton.textContent = "Tu sais très bien que c'est oui ❤️";
+    }
+}
+
+
+/* =========================================================
+   OUI
+========================================================= */
+
+function yesClicked() {
+
+    createHeartExplosion();
+
+    setTimeout(() => {
+
+        showScreen(3);
+
+    }, 700);
+}
+
+
+/* =========================================================
+   JAUGE D'AMOUR
+========================================================= */
+
+let love = 0;
+
+function addLove() {
+
+    love += 20;
+
+    if (love > 100) {
+        love = 100;
+    }
+
+    const fill =
+        document.getElementById("loveFill");
+
+    fill.style.width =
+        love + "%";
+
+    createHeartExplosion();
+
+    if (love >= 100) {
+
+        setTimeout(() => {
+
+            showScreen(5);
+
+            finalCelebration();
+
+        }, 700);
+
+    }
+}
+
+
+/* =========================================================
+   EXPLOSION DE CŒURS
+========================================================= */
+
+function createHeartExplosion() {
+
+    const symbols = [
+        "❤️",
+        "💗",
+        "💕",
+        "♡",
+        "♥"
+    ];
+
+    for (let i = 0; i < 18; i++) {
+
+        const heart =
+            document.createElement("div");
+
+        heart.className =
+            "flying-heart";
+
+        heart.textContent =
+            symbols[
+                Math.floor(
+                    Math.random()
+                    * symbols.length
+                )
+            ];
+
+        heart.style.left =
+            (40 + Math.random() * 20)
+            + "vw";
+
+        heart.style.bottom =
+            (25 + Math.random() * 15)
+            + "vh";
+
+        heart.style.setProperty(
+            "--x",
+            (-150 + Math.random() * 300) + "px"
+        );
+
+        heart.style.animationDuration =
+            (2.5 + Math.random() * 2)
+            + "s";
+
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 5000);
+    }
+}
+
+
+/* =========================================================
+   GRANDE CÉLÉBRATION FINALE
+========================================================= */
+
+function finalCelebration() {
+
+    for (let i = 0; i < 70; i++) {
+
+        setTimeout(() => {
+
+            createHeartExplosion();
+
+        }, i * 70);
+
+    }
+}
+
+
+/* =========================================================
+   EMPÊCHER LE NON DE REVENIR DANS L'ÉCRAN
+========================================================= */
+
+window.addEventListener("resize", () => {
+
+    if (
+        noButton.classList.contains("running")
+    ) {
+
+        noButton.style.left = "50%";
+        noButton.style.top = "70%";
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
+```
